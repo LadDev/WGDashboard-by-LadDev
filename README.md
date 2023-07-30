@@ -67,6 +67,9 @@ This WireGuard + AdGuard Home bundle allows you to set up a VPN for the whole fa
 
 
 If you like our build, you can support us with donations to motivate the development of the project:
+
 USDT TRC-20: **TZ1amusaxdQpNPsGjZEjL2CHadELZjUjKW**
+
 Bitcoin: **bc1qs84v8p2mhjcz7k27usz4jlgu3xnw5auqzzuwy7**
+
 Ethereum: **0xF8002A09B0a02c64884d08478cAb32659edF8531**
