@@ -39,6 +39,12 @@ docker run -d --privileged\
 -p 5443:5443/tcp -p 5443:5443/udp --name wgdashboard wgdashboard
 ```
 
+If you restart the primary server where the docker container is running, just run the command to restart it after a reboot:
+
+```bash
+docker start wgdashboard
+```
+
 Pay attention to open ports. ``**10085**`` is the port of the WireGuard administration panel, where you can configure configurations and manage peers
 
 Port ``**51820/udp**`` is the WireGuard client connection port. If you will use a different port in your configuration or have multiple configurations, 
