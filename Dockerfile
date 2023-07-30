@@ -45,7 +45,7 @@ RUN npm install -g pm2
 
 COPY ./api /var/www/
 
-WORKDIR /var/www/api
+WORKDIR /var/www
 RUN npm install
 
 #RUN chmod +x change_private.sh
