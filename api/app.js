@@ -117,7 +117,7 @@ async function start(){
                             if(peer.allowed_ip && peer.allowed_ip !== ""){
                                 output.push(`AllowedIPs = ${peer.allowed_ip}`)
                             }
-                            if(peer.endpoint && peer.endpoint !== ""){
+                            if(peer.endpoint && peer.endpoint !== "" && peer.endpoint !== "(none)"){
                                 output.push(`Endpoint = ${peer.endpoint}`)
                             }
                             output.push(``)
