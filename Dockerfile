@@ -43,10 +43,14 @@ RUN mongod --fork --logpath /var/log/mongodb.log \
 
 RUN npm install -g pm2
 
+RUN curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+
 COPY ./api /var/www/
 
 WORKDIR /var/www
 RUN npm install
+
+RUN chmod +x /var/www/start.sh
 
 #RUN chmod +x change_private.sh
 #RUN ./change_private.sh
@@ -67,6 +71,22 @@ WORKDIR /
 EXPOSE 27017
 EXPOSE 10085
 EXPOSE 51820/udp
+
+#AdguarHome Ports
+EXPOSE 53/tcp
+EXPOSE 53/udp
+EXPOSE 67/udp
+EXPOSE 68/udp
+EXPOSE 80/tcp
+EXPOSE 443/tcp
+EXPOSE 443/udp
+EXPOSE 3000/tcp
+EXPOSE 853/tcp
+EXPOSE 853/udp
+EXPOSE 784/udp
+EXPOSE 8853/udp
+EXPOSE 5443/tcp
+EXPOSE 5443/udp
 #
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 ENTRYPOINT bash -c "/usr/bin/supervisord -c /etc/supervisor/supervisord.conf"

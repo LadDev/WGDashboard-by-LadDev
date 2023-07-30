@@ -3,14 +3,14 @@ module.exports = {
         {
             name: 'Api',
             script: 'app.js',
-            watch: false,
-            ignore_watch: ['node_modules', 'logs'],
+            watch: true,
+            ignore_watch: ['node_modules', 'logs', "db"],
         },
         {
             name: 'HandshakeMonitor',
             script: 'handshake_monitor.js',
-            watch: false,
-            ignore_watch: ['node_modules', 'logs'],
+            watch: true,
+            ignore_watch: ['node_modules', 'logs', "db"],
         },
     ],
 };

@@ -10,10 +10,13 @@ config()
 const mongoose = require("mongoose");
 const Admins = require("./models/Admins")
 const GlobalConfig = require("./models/GlobalConfig")
+const Interfaces = require("./models/Interfaces")
+const Peers = require("./models/Peers")
 const bcrypt = require("bcryptjs")
 const {exec} = require("child_process");
 const {updateEnvVariable} = require("./middleware/WireGuardConf");
 const path = require('path');
+const fs = require("fs");
 
 app.use(cors())
 
@@ -59,7 +62,7 @@ async function start(){
             useUnifiedTopology: true,
         })
 
-        //updateEnvVariable("WG_CONF_PATH","/etc/wireguard/")
+
 
         const gc = await GlobalConfig.find({})
         if(!gc || gc.length === 0){
@@ -73,6 +76,59 @@ async function start(){
 
             await newGC.save()
         }
+
+
+        const interfaces = await Interfaces.find({})
+
+        if(interfaces && interfaces.length > 0){
+            for(const intr of interfaces){
+
+                try {
+                    await fs.promises.access(`${process.env.WG_CONF_PATH}/${intr.name}.conf`);
+                }catch (e) {
+                    console.log(e)
+                    const output = ["[Interface]"];
+                    output.push(`Address = ${intr.address}`)
+                    output.push(`ListenPort = ${intr.port}`)
+                    output.push(`PrivateKey = ${intr.private}`)
+                    if (intr.preup && intr.preup !== 0) {
+                        output.push(`PreUp = ${intr.preup}`)
+                    }
+                    if (intr.predown && intr.predown.length !== 0) {
+                        output.push(`PreDown = ${intr.predown}`)
+                    }
+                    if (intr.postup && intr.postup.length !== 0) {
+                        output.push(`PostUp = ${intr.postup}`)
+                    }
+                    if (intr.postdown && intr.postdown.length !== 0) {
+                        output.push(`PostDown = ${intr.postdown}`)
+                    }
+
+                    output.push(``)
+
+                    const peersDB = await Peers.find({interface_name:intr.name})
+                    if(peersDB && peersDB.length > 0)
+                        for(const peer of peersDB){
+                            output.push("[Peer]")
+                            output.push(`PublicKey = ${peer.public_key}`)
+                            if(peer.preshared_key && peer.preshared_key !== ""){
+                                output.push(`PresharedKey = ${peer.preshared_key}`)
+                            }
+                            if(peer.allowed_ip && peer.allowed_ip !== ""){
+                                output.push(`AllowedIPs = ${peer.allowed_ip}`)
+                            }
+                            if(peer.endpoint && peer.endpoint !== ""){
+                                output.push(`Endpoint = ${peer.endpoint}`)
+                            }
+                            output.push(``)
+                        }
+
+                    fs.writeFileSync(`${process.env.WG_CONF_PATH}/${intr.name}.conf`, output.join('\n'));
+                }
+
+            }
+        }
+
 
         const admin = await Admins.findOne({});
 
