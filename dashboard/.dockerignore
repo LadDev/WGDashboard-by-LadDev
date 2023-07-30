@@ -1,0 +1,6 @@
+._*
+core_libs/._*
+solana/._*
+solana/core_libs/._*
+.git/
+.idea/
