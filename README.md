@@ -65,6 +65,7 @@ Here **10.0.0.1** is the address of your DNS server and the other addresses are 
 
 This WireGuard + AdGuard Home bundle allows you to set up a VPN for the whole family and configure visit restrictions for certain users, including the ability to set up parental controls
 
+In order to configure AdGuard Home after launching the Docker container, you need to go to: http://localhost:3000 and configure AdGuard
 
 If you like our build, you can support us with donations to motivate the development of the project:
 
