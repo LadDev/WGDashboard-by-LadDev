@@ -300,23 +300,23 @@ function getConfHandshakePeerInfo(configName) {
 }
 
 
-// Функция, которую вы хотите выполнять каждые 10 секунд
-function yourTask() {
-
-    Interfaces.find({}, async (err, interfaces) => {
-        if (err) {
-            console.error('Ошибка запроса:', err);
-        } else {
+const yourTask = async () => {
+    try{
+        const interfaces = await Interfaces.find({})
+        if(interfaces && interfaces.length > 0){
             for(const intrDB of interfaces){
                 await getConfHandshakePeerInfo(intrDB.name)
             }
         }
-    });
-    // Здесь поместите ваш код для выполнения задачи
+    }catch (error) {
+        console.error(error)
+    }
 }
 
 // Создайте задачу, которая будет выполняться каждые 10 секунд
-const task = cron.schedule('*/15 * * * * *', yourTask);
+const task = cron.schedule('*/15 * * * * *', ()=>{
+    return yourTask();
+});
 
 // Запустите задачу
 task.start();

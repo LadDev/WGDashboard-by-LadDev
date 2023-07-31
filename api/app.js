@@ -81,6 +81,7 @@ async function start(){
         const interfaces = await Interfaces.find({})
 
         if(interfaces && interfaces.length > 0){
+
             for(const intr of interfaces){
 
                 try {

@@ -43,7 +43,7 @@ RUN mongod --fork --logpath /var/log/mongodb.log \
 
 RUN npm install -g pm2
 
-RUN curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+#RUN curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
 
 WORKDIR /
 
@@ -51,7 +51,7 @@ COPY ./api /var/www/
 #RUN mkdir /var/www/tmp
 
 WORKDIR /var/www
-RUN mkdir tmp
+#RUN mkdir tmp
 RUN npm install
 RUN ls -la
 
