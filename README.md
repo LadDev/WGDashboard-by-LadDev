@@ -29,7 +29,7 @@ docker run -d --privileged \
 -v /var/docker/adguard/workdir:/opt/adguardhome/work \
 -v /var/docker/adguard/confdir:/opt/adguardhome/conf \
 -v /var/www/api/db:/data/db \
--v /var/www/api:/var/www \
+-v /var/www/api/src:/var/www \
 -p 10085:10085 -p 51820:51820/udp -p 51820:51820/tcp \
 --restart unless-stopped \
 -p 53:53/tcp -p 53:53/udp \
