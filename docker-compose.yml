@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  wgdashboard:
+    image: wgdashboard
+    container_name: wgdashboard
+    privileged: true
+    restart: unless-stopped
+    ports:
+      - "10085:10085"
+      - "51820:51820/udp"
+      - "51820:51820/tcp"
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "3000:3000/tcp"
+      - "853:853/tcp"
+      - "784:784/udp"
+      - "853:853/udp"
+      - "8853:8853/udp"
+      - "5443:5443/tcp"
+      - "5443:5443/udp"
+    volumes:
+      - /var/docker/adguard/workdir:/opt/adguardhome/work
+      - /var/docker/adguard/confdir:/opt/adguardhome/conf
+      - /var/www/api/db:/data/db
+      - /var/www/api:/var/www

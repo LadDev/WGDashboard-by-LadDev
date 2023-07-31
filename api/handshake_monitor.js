@@ -30,6 +30,8 @@ start().then(()=>{
 })
 
 function getConfHandshakePeerInfo(configName) {
+    config()
+
     const now = DateTime.local();
     const timeDelta = { minutes: 2 };
     let runningPeers = 0;
@@ -143,6 +145,9 @@ function getConfHandshakePeerInfo(configName) {
             let total_sent = 0
             let total_receive = 0
 
+            let intr_sent_calc = 0
+            let intr_receive_calc = 0
+
             for(const peer of peers){
                 const peerArr = peer.split("\t")
 
@@ -189,6 +194,10 @@ function getConfHandshakePeerInfo(configName) {
                 }
 
                 if(peer_sent_calc !== 0 || peer_receive_calc !== 0){
+
+                    intr_sent_calc += peer_sent_calc
+                    intr_receive_calc += peer_receive_calc
+
                     const peerTransferDB = await PeersTransfer.findOne({interface_name: configName, public_key: peerPublicKey})
                     if(!peerTransferDB){
                         const newPeerTransferDB = new PeersTransfer({
@@ -217,12 +226,9 @@ function getConfHandshakePeerInfo(configName) {
 
             const intrDB = await Interfaces.findOne({name: configName})
 
-            let intr_sent_calc = 0
-            let intr_receive_calc = 0
-
             if(intrDB){
-                intr_sent_calc = Number(total_sent) - Number(intrDB.total_sent)
-                intr_receive_calc = Number(total_receive) - Number(intrDB.total_receive)
+                //intr_sent_calc = Number(total_sent) - Number(intrDB.total_sent)
+                //intr_receive_calc = Number(total_receive) - Number(intrDB.total_receive)
 
                 intrDB.total_receive = !isNaN(total_receive)?total_receive:0
                 intrDB.total_sent = !isNaN(total_sent)?total_receive:0
@@ -253,10 +259,6 @@ function getConfHandshakePeerInfo(configName) {
                         await intrTransferDB.save()
                     }
                 }
-
-
-
-
             }
 
             resolve(runningPeers);
@@ -300,14 +302,21 @@ function getConfHandshakePeerInfo(configName) {
 
 // Функция, которую вы хотите выполнять каждые 10 секунд
 function yourTask() {
-    getConfHandshakePeerInfo("wg0").then(rc=>{
 
-    })
+    Interfaces.find({}, async (err, interfaces) => {
+        if (err) {
+            console.error('Ошибка запроса:', err);
+        } else {
+            for(const intrDB of interfaces){
+                await getConfHandshakePeerInfo(intrDB.name)
+            }
+        }
+    });
     // Здесь поместите ваш код для выполнения задачи
 }
 
 // Создайте задачу, которая будет выполняться каждые 10 секунд
-const task = cron.schedule('*/10 * * * * *', yourTask);
+const task = cron.schedule('*/15 * * * * *', yourTask);
 
 // Запустите задачу
 task.start();

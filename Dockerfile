@@ -52,25 +52,12 @@ RUN npm install
 
 RUN chmod +x /var/www/start.sh
 
-#RUN chmod +x change_private.sh
-#RUN ./change_private.sh
-#
-#RUN rm setup.sh
-#
-#WORKDIR /wgdashboard/src
-#
-#RUN chmod +x wgd.sh
-#RUN chmod +x /wgdashboard/src/wgd.sh
-#
-#RUN ./wgd.sh install
-#
 WORKDIR /
-#
-#RUN chmod -R 755 /etc/wireguard
 
 EXPOSE 27017
 EXPOSE 10085
 EXPOSE 51820/udp
+EXPOSE 51820/tcp
 
 #AdguarHome Ports
 EXPOSE 53/tcp
