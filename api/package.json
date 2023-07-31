@@ -4,6 +4,7 @@
   "description": "WireGuard VPN Dashboard",
   "main": "app.js",
   "scripts": {
+    "start:pm2": "pm2-runtime pm2.config.js",
     "start": "nodemon app.js",
     "hmonitor": "nodemon handshake_monitor.js"
   },

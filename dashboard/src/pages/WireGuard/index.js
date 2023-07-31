@@ -80,7 +80,7 @@ const WireGuard = (props) => {
         <React.Fragment>
 
             {configData&&configData.status&&configData.status==="running"?(
-                <div className="customizer-setting d-none d-md-block" style={{bottom: "80px"}}>
+                <div className="customizer-setting d-md-block" style={{bottom: "80px"}}>
                     <div className="btn-info btn-rounded shadow-lg btn btn-icon btn-lg p-2" onClick={addPeerModalToggle}>
                         <i className='mdi mdi-spin mdi-key-plus fs-22'></i>
                     </div>
