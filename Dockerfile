@@ -51,13 +51,13 @@ COPY ./api /var/www/
 #RUN mkdir /var/www/tmp
 
 WORKDIR /var/www
+RUN mkdir tmp
 RUN npm install
+RUN ls -la
 
 RUN chmod +x /var/www/start.sh
 
 WORKDIR /
-
-RUN mkdir tmp
 
 EXPOSE 27017
 EXPOSE 10085
