@@ -46,7 +46,7 @@ RUN npm install -g pm2
 RUN curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
 
 COPY ./api /var/www/
-RUN mkdir /var/www/tmp
+#RUN mkdir /var/www/tmp
 
 WORKDIR /var/www
 RUN npm install
