@@ -45,6 +45,8 @@ RUN npm install -g pm2
 
 RUN curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
 
+WORKDIR /
+
 COPY ./api /var/www/
 #RUN mkdir /var/www/tmp
 
@@ -54,6 +56,8 @@ RUN npm install
 RUN chmod +x /var/www/start.sh
 
 WORKDIR /
+
+RUN mkdir tmp
 
 EXPOSE 27017
 EXPOSE 10085
