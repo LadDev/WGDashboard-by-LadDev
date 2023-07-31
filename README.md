@@ -45,29 +45,29 @@ If you restart the primary server where the docker container is running, just ru
 docker start wgdashboard
 ```
 
-Pay attention to open ports. ``**10085**`` is the port of the WireGuard administration panel, where you can configure configurations and manage peers
+Pay attention to open ports. ``10085`` is the port of the WireGuard administration panel, where you can configure configurations and manage peers
 
-Port ``**51820/udp**`` is the WireGuard client connection port. If you will use a different port in your configuration or have multiple configurations, 
+Port ``51820/udp`` is the WireGuard client connection port. If you will use a different port in your configuration or have multiple configurations, 
 then you will need to open additional UDP ports for users to connect to.
 
 
 All other ports are required for AdGuard Home to work
 
 Once the container is successfully launched you will have access to the administration panel at ``http://localhost:10085/login`` .
-The default login and password is ``**admin**`` and password ``**admin**``. Do not forget to change the password to access the administration panel, 
+The default login and password is ``admin`` and password ``admin``. Do not forget to change the password to access the administration panel, 
 as well as change the DNS server settings on AdGuard Home at ``http://localhost:10085/settings`` .
 
 As DNS server you can specify directly the internal address of the WireGuard server you configured and started on the page ``http://localhost:10085/home`` .
 
-For example, if you specified the address ``**10.0.0.0.1/24**`` in the VPN server configuration, 
-the DNS server address will be ``**10.0.0.1**``. 
+For example, if you specified the address ``10.0.0.0.1/24`` in the VPN server configuration, 
+the DNS server address will be ``10.0.0.1``. 
 You can also specify the external address of the DNS server, 
 but then AdGuard Home will not display the IPs of the VPN clients that made the requests. 
 You can specify 3 different DNS servers in the server settings. 
 
-For example: ``**10.0.0.1, 1.1.1.1, 8.8.4.4**``
+For example: ``10.0.0.1, 1.1.1.1, 8.8.4.4``
 
-Here ``**10.0.0.1**`` is the address of your DNS server and the other addresses are the DNS servers of Google.
+Here ``10.0.0.1`` is the address of your DNS server and the other addresses are the DNS servers of Google.
 
 This WireGuard + AdGuard Home bundle allows you to set up a VPN for the whole family and configure visit restrictions for certain users, including the ability to set up parental controls
 
@@ -75,10 +75,10 @@ In order to configure AdGuard Home after launching the Docker container, you nee
 
 If you like our build, you can support us with donations to motivate the development of the project:
 
-``
+
 USDT TRC-20: **TZ1amusaxdQpNPsGjZEjL2CHadELZjUjKW**
 
 Bitcoin: **bc1qs84v8p2mhjcz7k27usz4jlgu3xnw5auqzzuwy7**
 
 Ethereum: **0xF8002A09B0a02c64884d08478cAb32659edF8531**
-``
+
