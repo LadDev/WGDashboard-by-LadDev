@@ -831,7 +831,7 @@ router.post("/peer/new", auth, async (req, res) => {
         await newPeer.save()
 
         let wgCommands = ["set", interface_name, "peer", public_key]
-        const psk_file = `${keys_name}.txt`;
+        const psk_file = `./tmp/${keys_name}.txt`;
         if (usePreSharedKey && usePreSharedKey) {
             fs.writeFileSync(psk_file, preshared_key);
             wgCommands.push("preshared-key")
@@ -962,7 +962,7 @@ router.post("/peer/change-state", auth, async (req, res) => {
                 const currentDate = new Date();
                 const formattedDate = currentDate.toISOString().replace(/[-:.]/g, '').replace('T', '_').split('.')[0];
                 const keys_name = `${interface_name}_${formattedDate}_Peer_#_1`
-                const psk_file = `${keys_name}.txt`;
+                const psk_file = `./tmp/${keys_name}.txt`;
                 //f"wg set {data['config']} peer {moveLockToUnlock[0]} allowed-ips {moveLockToUnlock[11]} preshared-key {f_name}",
                 let comm = ["set", interface_name, "peer", peerDB.public_key, "allowed-ips", peerDB.allowed_ip]
                 if (peerDB.preshared_key && peerDB.preshared_key !== "") {
@@ -1041,7 +1041,7 @@ router.post("/peer/save-settings", auth, async (req,res)=>{
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().replace(/[-:.]/g, '').replace('T', '_').split('.')[0];
         const keys_name = `${interface_name}_${formattedDate}_Peer_#_1`
-        const psk_file = `${keys_name}.txt`;
+        const psk_file = `./tmp/${keys_name}.txt`;
 
         let comm = ["set", interface_name, "peer", peerDB.public_key]
         fs.writeFileSync(psk_file, preshared_key);
