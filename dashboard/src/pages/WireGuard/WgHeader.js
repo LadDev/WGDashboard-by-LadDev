@@ -15,7 +15,6 @@ const WgHeader = (props) => {
     const [confData,setConfData] = useState({address: "", port: "", public_key: "", status: "", total_data: 0, total_sent: 0, total_receive: 0, runned_clients: 0})
     //const isRunningRef = useRef(null);
     const [running, setRunning] = useState(false)
-    const [duration, setDuration] = useState(1)
 
     useEffect(()=>{
         if(props.headerData && props.headerData !== confData){
@@ -29,25 +28,22 @@ const WgHeader = (props) => {
 
             let usageTMP = Number(usage)
 
-            setDuration(0)
-
             if(usageTMP/(1024**3) > 1){
                 const data = (usageTMP/(1024**3))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={duration}/>
+                    <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={0}/>
                 )
             }else if(usageTMP/(1024**2) > 1){
                 const data = (usageTMP/(1024**2))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={duration}/>
+                    <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={0}/>
                 )
             }else{
                 const data = (usageTMP/(1024**1))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={duration}/>
+                    <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={0}/>
                 )
             }
-
             //return Number(Number(usage)/(1024**3)).toFixed(4)
         }else{
             return 0
