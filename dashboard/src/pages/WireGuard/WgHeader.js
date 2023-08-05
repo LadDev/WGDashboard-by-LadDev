@@ -15,6 +15,7 @@ const WgHeader = (props) => {
     const [confData,setConfData] = useState({address: "", port: "", public_key: "", status: "", total_data: 0, total_sent: 0, total_receive: 0, runned_clients: 0})
     //const isRunningRef = useRef(null);
     const [running, setRunning] = useState(false)
+    const [duration, setDuration] = useState(1)
 
     useEffect(()=>{
         if(props.headerData && props.headerData !== confData){
@@ -23,45 +24,30 @@ const WgHeader = (props) => {
 
     }, [props.headerData])
 
-    // const convertToGB = (usage) => {
-    //     if(usage && !isNaN(Number(usage))){
-    //
-    //         let usageTMP = Number(usage)
-    //
-    //         if(usageTMP/(1024**3) > 1){
-    //             return (usageTMP/(1024**3)).toFixed(4)+" GB"
-    //         }else if(usageTMP/(1024**2) > 1){
-    //             return (usageTMP/(1024**2)).toFixed(2)+" MB"
-    //         }else{
-    //             return (usageTMP/(1024**1)).toFixed(2)+" KB"
-    //         }
-    //         //return Number(Number(usage)/(1024**3)).toFixed(4)
-    //     }else{
-    //         return 0
-    //     }
-    // }
-
     const convertToGBWidget = (usage) => {
         if(usage && !isNaN(Number(usage))){
 
             let usageTMP = Number(usage)
 
+            setDuration(0)
+
             if(usageTMP/(1024**3) > 1){
                 const data = (usageTMP/(1024**3))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={1}/>
+                    <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={duration}/>
                 )
             }else if(usageTMP/(1024**2) > 1){
                 const data = (usageTMP/(1024**2))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={1}/>
+                    <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={duration}/>
                 )
             }else{
                 const data = (usageTMP/(1024**1))
                 return (
-                    <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={1}/>
+                    <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={duration}/>
                 )
             }
+
             //return Number(Number(usage)/(1024**3)).toFixed(4)
         }else{
             return 0
