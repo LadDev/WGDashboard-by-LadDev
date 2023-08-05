@@ -27,23 +27,26 @@ const WgHeader = (props) => {
         if(usage && !isNaN(Number(usage))){
 
             let usageTMP = Number(usage)
-
-            if(usageTMP/(1024**3) > 1){
-                const data = (usageTMP/(1024**3))
-                return (
-                    <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={0}/>
-                )
-            }else if(usageTMP/(1024**2) > 1){
-                const data = (usageTMP/(1024**2))
-                return (
-                    <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={0}/>
-                )
-            }else{
-                const data = (usageTMP/(1024**1))
-                return (
-                    <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={0}/>
-                )
+            if(usageTMP>0){
+                if(usageTMP/(1024**3) > 1){
+                    let data = (usageTMP/(1024**3))
+                    return (
+                        <CountUp start={0} prefix={""} suffix={" GB"} separator={"."} end={data} decimals={4} duration={0.5}/>
+                    )
+                }else if(usageTMP/(1024**2) > 1){
+                    let data = (usageTMP/(1024**2))
+                    return (
+                        <CountUp start={0} prefix={""} suffix={" MB"} separator={"."} end={data} decimals={2} duration={0.5}/>
+                    )
+                }else{
+                    let data = (usageTMP/(1024**1))
+                    return (
+                        <CountUp start={0} prefix={""} suffix={" KB"} separator={"."} end={data} decimals={2} duration={0.5}/>
+                    )
+                }
             }
+
+
             //return Number(Number(usage)/(1024**3)).toFixed(4)
         }else{
             return 0
