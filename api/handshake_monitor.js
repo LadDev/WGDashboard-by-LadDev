@@ -235,7 +235,7 @@ function getConfHandshakePeerInfo(configName) {
                 intrDB.total_data = !isNaN(total_sent + total_receive)?total_sent + total_receive:0
                 await intrDB.save()
 
-                if(intr_sent_calc > 0 || intr_receive_calc > 0){
+                if(intr_sent_calc !== 0 || intr_receive_calc !== 0){
                     const intrTransferDB = await InterfacesTransfer.findOne({interface_name: configName})
                     if(!intrTransferDB){
                         const newInterTransferDB = new InterfacesTransfer({
@@ -311,6 +311,8 @@ const yourTask = async () => {
     }catch (error) {
         console.error(error)
     }
+
+    return true;
 }
 
 // Создайте задачу, которая будет выполняться каждые 10 секунд
